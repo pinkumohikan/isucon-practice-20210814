@@ -25,10 +25,9 @@ CREATE TABLE isuumo.estate
 );
 alter table isuumo.estate add index (rent, id);
 alter table isuumo.estate add index (rent, popularity, id);
-alter table isuumo.estate add index (door_height_range_id, door_width_range_id,rent_range_id);
-alter table isuumo.estate add index (door_width_range_id, popularity);
-alter table isuumo.estate add index (door_height_range_id, popularity);
-alter table isuumo.estate add index (rent_range_id, popularity);
+alter table isuumo.estate add index (door_width_range_id);
+alter table isuumo.estate add index (door_height_range_id);
+alter table isuumo.estate add index (rent_range_id);
 alter table isuumo.estate add index (latitude);
 alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
