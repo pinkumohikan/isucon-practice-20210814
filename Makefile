@@ -26,4 +26,4 @@ kataribe:
 	sudo cat /var/log/nginx/access.log | ./kataribe
 
 bench:
-	cd /home/isucon/isuumo/bench && ./bench
+	cd /home/isucon/isuumo/bench && ./bench -target-url=http://localhost:80
