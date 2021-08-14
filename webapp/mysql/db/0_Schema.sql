@@ -82,4 +82,3 @@ END) stored not null;
 alter table isuumo.chair add index (price);
 alter table isuumo.chair add index (minus_popularity, id);
 alter table isuumo.chair add index (price_range_id, height_range_id, depth_range_id, color, stock);
-alter table isuumo.chair add index (stock, price, id);
