@@ -549,7 +549,7 @@ func searchChairs(c echo.Context) error {
 	searchQuery := "SELECT * FROM chair WHERE "
 	countQuery := "SELECT COUNT(*) FROM chair WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
-	limitOffset := " ORDER BY popularity DESC, id ASC LIMIT ? OFFSET ?"
+	limitOffset := " ORDER BY minus_popularity ASC, id ASC LIMIT ? OFFSET ?"
 
 	var res ChairSearchResponse
 	err = dbByChair.Get(&res.Count, countQuery+searchCondition, params...)
@@ -907,7 +907,7 @@ func searchEstateNazotte(c echo.Context) error {
 	}
 
 	estates := []Estate{}
-	query := fmt.Sprintf(`SELECT id, thumbnail, name, description, latitude, longitude, address, rent, door_height, door_width, features, popularity FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), point) ORDER BY popularity DESC, id ASC LIMIT 50`, coordinates.coordinatesToText())
+	query := fmt.Sprintf(`SELECT id, thumbnail, name, description, latitude, longitude, address, rent, door_height, door_width, features, popularity FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), point) ORDER BY minus_popularity ASC, id ASC LIMIT 50`, coordinates.coordinatesToText())
 	err = dbByEstate.Select(&estates, query)
 	if err == sql.ErrNoRows {
 		return c.JSON(http.StatusOK, EstateSearchResponse{Count: 0, Estates: []Estate{}})
