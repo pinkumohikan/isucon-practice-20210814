@@ -41,3 +41,4 @@ CREATE TABLE isuumo.chair
     stock       INTEGER         NOT NULL
 );
 
+alter table isuumo.chair add index (price);
