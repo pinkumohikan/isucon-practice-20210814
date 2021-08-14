@@ -791,8 +791,8 @@ func searchEstates(c echo.Context) error {
 	}
 
 	if c.QueryParam("features") != "" {
-		conditions = append(conditions, "MATCH (features) AGAINST ('?') IN BOOLEAN MODE")
-		params = append(params, strings.Replace(c.QueryParam("features"),",", " ", -1))
+		q := fmt.Sprintf("MATCH (features) AGAINST ('%s') IN BOOLEAN MODE", strings.Replace(c.QueryParam("features"),",", " ", -1))
+		conditions = append(conditions, q)
 	}
 
 	if len(conditions) == 0 {
