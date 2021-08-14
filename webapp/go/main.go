@@ -352,8 +352,6 @@ func initialize(c echo.Context) error {
 		}
 	}
 
-	dbByEstate.Exec("INSERT INTO `estate`(`id`, `door_height_range_id`) SELECT id, CASE WHEN estate.door_height >= 150 THEN 3 WHEN estate.door_height >= 110 THEN 2 WHEN estate.door_height >= 80 THEN 1 WHEN estate.door_height >= 0 THEN 0 END FROM estate ON DUPLICATE KEY UPDATE `id` = VALUES(`id`);")
-
 	return c.JSON(http.StatusOK, InitializeResponse{
 		Language: "go",
 	})

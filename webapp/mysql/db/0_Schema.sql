@@ -19,7 +19,7 @@ CREATE TABLE isuumo.estate
     door_width           INTEGER          NOT NULL,
     features             VARCHAR(64)      NOT NULL,
     popularity           INTEGER          NOT NULL,
-    door_width_range_id  INTEGER          NOT NULL DEFAULT 0,
+    door_width_range_id  INTEGER          AS (CASE WHEN estate.door_height >= 150 THEN 3 WHEN estate.door_height >= 110 THEN 2 WHEN estate.door_height >= 80 THEN 1 WHEN estate.door_height >= 0 THEN 0 END),
     door_height_range_id INTEGER          NOT NULL DEFAULT 0,
     rent_range_id        INTEGER          NOT NULL DEFAULT 0
 );
