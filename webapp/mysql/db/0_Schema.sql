@@ -31,6 +31,8 @@ alter table isuumo.estate add index (rent_range_id, popularity);
 alter table isuumo.estate add index (latitude);
 alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
+alter table isuumo.estate add column minus_popularity int as (popularity * -1) stored not null;
+alter table isuumo.estate add index (minus_popularity, id);
 alter table isuumo.estate add spatial index (point);
 
 CREATE TABLE isuumo.chair
