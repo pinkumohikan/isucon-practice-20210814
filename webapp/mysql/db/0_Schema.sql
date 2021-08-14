@@ -24,6 +24,8 @@ alter table isuumo.estate add index (rent, id);
 alter table isuumo.estate add index (rent, popularity, id);
 alter table isuumo.estate add index (door_width, popularity);
 alter table isuumo.estate add index (door_height, popularity);
+alter table isuumo.estate add index (rent, door_width);
+alter table isuumo.estate add index (rent, door_height);
 alter table isuumo.estate add index (latitude);
 alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
