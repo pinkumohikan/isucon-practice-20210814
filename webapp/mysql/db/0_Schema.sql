@@ -26,7 +26,7 @@ alter table isuumo.estate add index (door_height, popularity);
 alter table isuumo.estate add index (latitude);
 alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
-alter table isuumo.estate add column minus_popularity int as (popularity * -1) stored not null;
+alter table if not exists isuumo.estate add column minus_popularity int as (popularity * -1) stored not null;
 alter table isuumo.estate add index (minus_popularity, id);
 
 CREATE TABLE isuumo.chair
