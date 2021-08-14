@@ -13,6 +13,7 @@ CREATE TABLE isuumo.estate
     address     VARCHAR(128)        NOT NULL,
     latitude    DOUBLE PRECISION    NOT NULL,
     longitude   DOUBLE PRECISION    NOT NULL,
+    `point`     POINT AS (POINT(latitude, longitude)) STORED NOT NULL,
     rent        INTEGER             NOT NULL,
     door_height INTEGER             NOT NULL,
     door_width  INTEGER             NOT NULL,
@@ -28,6 +29,7 @@ alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
 alter table isuumo.estate add column minus_popularity int as (popularity * -1) stored not null;
 alter table isuumo.estate add index (minus_popularity, id);
+alter table isuumo.estate add spatial index (point);
 
 CREATE TABLE isuumo.chair
 (
@@ -47,3 +49,4 @@ CREATE TABLE isuumo.chair
 );
 alter table isuumo.chair add index (stock, price, id);
 
+alter table isuumo.chair add index (price);
