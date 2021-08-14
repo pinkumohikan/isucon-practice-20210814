@@ -30,6 +30,7 @@ alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);
 alter table isuumo.estate add index (minus_popularity, id);
 alter table isuumo.estate add spatial index (point);
+alter table isuumo.estate add fulltext index (features);
 
 CREATE TABLE isuumo.chair
 (

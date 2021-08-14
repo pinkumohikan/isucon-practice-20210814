@@ -791,10 +791,8 @@ func searchEstates(c echo.Context) error {
 	}
 
 	if c.QueryParam("features") != "" {
-		for _, f := range strings.Split(c.QueryParam("features"), ",") {
-			conditions = append(conditions, "features like concat('%', ?, '%')")
-			params = append(params, f)
-		}
+		conditions = append(conditions, "MATCH (features) AGAINST (?) IN BOOLEAN MODE")
+		params = append(params, strings.Replace(c.QueryParam("features"),",", " ", -1))
 	}
 
 	if len(conditions) == 0 {
