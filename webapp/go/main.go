@@ -425,7 +425,7 @@ func postChair(c echo.Context) error {
 			c.Logger().Errorf("failed to read record: %v", err)
 			return c.NoContent(http.StatusBadRequest)
 		}
-		_, err := tx.Exec("INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock)
+		_, err := tx.Exec("INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock, height_range_id, width_range_id, depth_range_id, price_range_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT)", id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock)
 		if err != nil {
 			c.Logger().Errorf("failed to insert chair: %v", err)
 			return c.NoContent(http.StatusInternalServerError)
