@@ -867,7 +867,7 @@ func searchEstateNazotte(c echo.Context) error {
 
 	estates := []Estate{}
 	query := fmt.Sprintf(`SELECT id, thumbnail, name, description, latitude, longitude, address, rent, door_height, door_width, features, popularity FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), point) LIMIT 51`, coordinates.coordinatesToText())
-	err = db.Get(&estates, query)
+	err = db.Select(&estates, query)
 	if err != nil && err != sql.ErrNoRows {
 		c.Echo().Logger.Errorf("db access is failed on executing validate if estate is in polygon : %v", err)
 		return c.NoContent(http.StatusInternalServerError)
