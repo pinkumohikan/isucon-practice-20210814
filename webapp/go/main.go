@@ -740,13 +740,15 @@ func searchEstates(c echo.Context) error {
 	params := make([]interface{}, 0)
 
 	if c.QueryParam("doorHeightRangeId") != "" {
+		doorHeightRangeId, _:=  strconv.Atoi(c.QueryParam("doorHeightRangeId"))
 		conditions = append(conditions, "door_height_range_id = ?")
-		params = append(params,  c.QueryParam("doorHeightRangeId"))
+		params = append(params, doorHeightRangeId)
 	}
 
 	if c.QueryParam("doorWidthRangeId") != "" {
+		doorWidthRangeId, _:=  strconv.Atoi(c.QueryParam("doorWidthRangeId"))
 		conditions = append(conditions, "door_width_range_id = ?")
-		params = append(params, c.QueryParam("door_width_range_id"))
+		params = append(params, doorWidthRangeId)
 	}
 
 	if c.QueryParam("rentRangeId") != "" {
