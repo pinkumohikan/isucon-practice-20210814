@@ -444,22 +444,22 @@ func searchChairs(c echo.Context) error {
 
 	if c.QueryParam("priceRangeId") != "" {
 		conditions = append(conditions, "price_range_id = ?")
-		params = append(params, c.QueryParam("price_range_id"))
+		params = append(params, c.QueryParam("priceRangeId"))
 	}
 
 	if c.QueryParam("heightRangeId") != "" {
 		conditions = append(conditions, "height_range_id = ?")
-		params = append(params, c.QueryParam("height_range_id"))
+		params = append(params, c.QueryParam("heightRangeId"))
 	}
 
 	if c.QueryParam("widthRangeId") != "" {
 		conditions = append(conditions, "width_range_id = ?")
-		params = append(params, c.QueryParam("width_range_id"))
+		params = append(params, c.QueryParam("widthRangeId"))
 	}
 
 	if c.QueryParam("depthRangeId") != "" {
 		conditions = append(conditions, "depth_range_id = ?")
-		params = append(params, c.QueryParam("depth_range_id"))
+		params = append(params, c.QueryParam("depthRangeId"))
 	}
 
 	if c.QueryParam("kind") != "" {
