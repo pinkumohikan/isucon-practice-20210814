@@ -20,6 +20,9 @@ CREATE TABLE isuumo.estate
     popularity  INTEGER             NOT NULL
 );
 alter table isuumo.estate add index (rent, id);
+alter table isuumo.estate add index (door_width, popularity);
+alter table isuumo.estate add index (door_height, popularity);
+alter table isuumo.estate add index (popularity);
 
 CREATE TABLE isuumo.chair
 (
