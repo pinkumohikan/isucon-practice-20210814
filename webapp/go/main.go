@@ -740,13 +740,13 @@ func searchEstates(c echo.Context) error {
 	params := make([]interface{}, 0)
 
 	if c.QueryParam("doorHeightRangeId") != "" {
-		doorHeightRangeId, _:=  strconv.Atoi(c.QueryParam("doorHeightRangeId"))
+		doorHeightRangeId, _ := strconv.Atoi(c.QueryParam("doorHeightRangeId"))
 		conditions = append(conditions, "door_height_range_id = ?")
 		params = append(params, doorHeightRangeId)
 	}
 
 	if c.QueryParam("doorWidthRangeId") != "" {
-		doorWidthRangeId, _:=  strconv.Atoi(c.QueryParam("doorWidthRangeId"))
+		doorWidthRangeId, _ := strconv.Atoi(c.QueryParam("doorWidthRangeId"))
 		conditions = append(conditions, "door_width_range_id = ?")
 		params = append(params, doorWidthRangeId)
 	}
@@ -756,6 +756,11 @@ func searchEstates(c echo.Context) error {
 		if err != nil {
 			c.Echo().Logger.Infof("rentRangeID invalid, %v : %v", c.QueryParam("rentRangeId"), err)
 			return c.NoContent(http.StatusBadRequest)
+		}
+
+		if estateRent.Min != -1 {
+			conditions = append(conditions, "rent >= ?")
+			params = append(params, estateRent.Min)
 		}
 
 		if estateRent.Max != -1 {
