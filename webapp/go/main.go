@@ -549,7 +549,7 @@ func searchChairs(c echo.Context) error {
 	searchQuery := "SELECT * FROM chair WHERE "
 	countQuery := "SELECT COUNT(*) FROM chair WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
-	limitOffset := " ORDER BY minus_popularity ASC, id ASC LIMIT ? OFFSET ?"
+	limitOffset := " ORDER BY popularity DESC, id ASC LIMIT ? OFFSET ?"
 
 	var res ChairSearchResponse
 	err = dbByChair.Get(&res.Count, countQuery+searchCondition, params...)
