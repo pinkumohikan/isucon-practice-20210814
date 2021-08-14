@@ -654,7 +654,7 @@ func getEstateDetail(c echo.Context) error {
 	}
 
 	var estate Estate
-	err = dbByEstate.Get(&estate, "SELECT * FROM estate WHERE id = ?", id)
+	err = dbByEstate.Get(&estate, "SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE id = ?", id)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			c.Echo().Logger.Infof("getEstateDetail estate id %v not found", id)
@@ -844,7 +844,7 @@ func searchEstates(c echo.Context) error {
 
 func getLowPricedEstate(c echo.Context) error {
 	estates := make([]Estate, 0, Limit)
-	query := `SELECT * FROM estate ORDER BY rent ASC, id ASC LIMIT ?`
+	query := `SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate ORDER BY rent ASC, id ASC LIMIT ?`
 	err := dbByEstate.Select(&estates, query, Limit)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -881,7 +881,7 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 	w := chair.Width
 	h := chair.Height
 	d := chair.Depth
-	query = `SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) ORDER BY popularity DESC, id ASC LIMIT ?`
+	query = `SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) ORDER BY popularity DESC, id ASC LIMIT ?`
 	err = dbByEstate.Select(&estates, query, w, h, w, d, h, w, h, d, d, w, d, h, Limit)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -908,10 +908,10 @@ func searchEstateNazotte(c echo.Context) error {
 
 	b := coordinates.getBoundingBox()
 	estatesInBoundingBox := []Estate{}
-	query := `SELECT * FROM estate WHERE latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ? ORDER BY popularity DESC, id ASC`
+	query := `SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ? ORDER BY popularity DESC, id ASC`
 	err = dbByEstate.Select(&estatesInBoundingBox, query, b.BottomRightCorner.Latitude, b.TopLeftCorner.Latitude, b.BottomRightCorner.Longitude, b.TopLeftCorner.Longitude)
 	if err == sql.ErrNoRows {
-		c.Echo().Logger.Infof("select * from estate where latitude ...", err)
+		c.Echo().Logger.Infof("select id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity from estate where latitude ...", err)
 		return c.JSON(http.StatusOK, EstateSearchResponse{Count: 0, Estates: []Estate{}})
 	} else if err != nil {
 		c.Echo().Logger.Errorf("database execution error : %v", err)
@@ -923,7 +923,7 @@ func searchEstateNazotte(c echo.Context) error {
 		validatedEstate := Estate{}
 
 		point := fmt.Sprintf("'POINT(%f %f)'", estate.Latitude, estate.Longitude)
-		query := fmt.Sprintf(`SELECT * FROM estate WHERE id = ? AND ST_Contains(ST_PolygonFromText(%s), ST_GeomFromText(%s))`, coordinates.coordinatesToText(), point)
+		query := fmt.Sprintf(`SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE id = ? AND ST_Contains(ST_PolygonFromText(%s), ST_GeomFromText(%s))`, coordinates.coordinatesToText(), point)
 		err = dbByEstate.Get(&validatedEstate, query, estate.ID)
 		if err != nil {
 			if err == sql.ErrNoRows {
@@ -969,7 +969,7 @@ func postEstateRequestDocument(c echo.Context) error {
 	}
 
 	estate := Estate{}
-	query := `SELECT * FROM estate WHERE id = ?`
+	query := `SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE id = ?`
 	err = dbByEstate.Get(&estate, query, id)
 	if err != nil {
 		if err == sql.ErrNoRows {
