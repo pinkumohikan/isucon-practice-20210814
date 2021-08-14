@@ -30,7 +30,7 @@ kataribe:
 	sudo cat /var/log/nginx/access.log | ./kataribe
 
 bench:
-	ssh isucon@18.182.58.153 "cd /home/isucon/isuumo/bench && ./bench -target-url=http://18.179.17.66"
+	cd /home/isucon/isuumo/bench && ./bench -target-url=http://18.179.17.66
 
 save-log: TS=$(shell date "+%Y%m%d_%H%M%S")
 save-log: 
