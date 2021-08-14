@@ -6,5 +6,7 @@
 node_modules
 bower_components
 webapp/go/isuumo
+webapp/frontend/public/images/*
+webapp/frontend/src/components/*
 kataribe
 
