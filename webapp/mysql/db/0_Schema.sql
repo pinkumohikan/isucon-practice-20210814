@@ -56,6 +56,7 @@ when height >= 80 and height < 110 then 1
 when height >= 110 and height < 150 then 2
 when height >= 150 then 3
 END) stored not null;
+alter table isuumo.chair add index (height_range_id);
 
 alter table isuumo.chair add column width_range_id int as (case 
 when width >= -1 and width < 80 then 0
@@ -63,6 +64,7 @@ when width >= 80 and width < 110 then 1
 when width >= 110 and width < 150 then 2
 when width >= 150 then 3
 END) stored not null;
+alter table isuumo.chair add index (width_range_id);
 
 alter table isuumo.chair add column depth_range_id int as (case 
 when depth >= -1 and depth < 80 then 0
@@ -70,6 +72,7 @@ when depth >= 80 and depth < 110 then 1
 when depth >= 110 and depth < 150 then 2
 when depth >= 150 then 3
 END) stored not null;
+alter table isuumo.chair add index (depth_range_id);
 
 alter table isuumo.chair add column price_range_id int as (case
 when price >= -1 and price < 3000 then 0
@@ -79,3 +82,4 @@ when price >= 9000 and price < 12000 then 3
 when price >= 12000 and price < 15000 then 4
 when price >= 15000 then 5
 END) stored not null;
+alter table isuumo.chair add index (price_range_id);
