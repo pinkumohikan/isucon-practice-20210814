@@ -50,3 +50,4 @@ CREATE TABLE isuumo.chair
 );
 alter table isuumo.chair add index (stock, price, id);
 alter table isuumo.chair add index (price);
+alter table isuumo.chair add index (minus_popularity, id);
