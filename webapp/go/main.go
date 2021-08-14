@@ -814,7 +814,7 @@ func searchEstates(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	searchQuery := "SELECT * FROM estate WHERE "
+	searchQuery := "SELECT id,name,description,thumbnail,address,latitude,longitude,rent,door_height,door_width,features,popularity FROM estate WHERE "
 	countQuery := "SELECT COUNT(*) FROM estate WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
 	limitOffset := " ORDER BY minus_popularity ASC, id ASC LIMIT ? OFFSET ?"
