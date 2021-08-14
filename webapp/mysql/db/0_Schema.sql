@@ -79,3 +79,5 @@ when price >= 12000 and price < 15000 then 4
 when price >= 15000 then 5
 END) stored not null;
 
+alter table isuumo.chair add index (price);
+alter table isuumo.chair add index (minus_popularity, id);
