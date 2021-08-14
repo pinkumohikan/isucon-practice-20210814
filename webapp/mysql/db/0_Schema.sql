@@ -6,24 +6,28 @@ DROP TABLE IF EXISTS isuumo.chair;
 
 CREATE TABLE isuumo.estate
 (
-    id          INTEGER             NOT NULL PRIMARY KEY,
-    name        VARCHAR(64)         NOT NULL,
-    description VARCHAR(4096)       NOT NULL,
-    thumbnail   VARCHAR(128)        NOT NULL,
-    address     VARCHAR(128)        NOT NULL,
-    latitude    DOUBLE PRECISION    NOT NULL,
-    longitude   DOUBLE PRECISION    NOT NULL,
-    `point`     POINT AS (POINT(latitude, longitude)) STORED NOT NULL,
-    rent        INTEGER             NOT NULL,
-    door_height INTEGER             NOT NULL,
-    door_width  INTEGER             NOT NULL,
-    features    VARCHAR(64)         NOT NULL,
-    popularity  INTEGER             NOT NULL,
+    id                   INTEGER          NOT NULL PRIMARY KEY,
+    name                 VARCHAR(64)      NOT NULL,
+    description          VARCHAR(4096)    NOT NULL,
+    thumbnail            VARCHAR(128)     NOT NULL,
+    address              VARCHAR(128)     NOT NULL,
+    latitude             DOUBLE PRECISION NOT NULL,
+    longitude            DOUBLE PRECISION NOT NULL,
+    `point`              POINT AS (POINT(latitude, longitude)) STORED NOT NULL,
+    rent                 INTEGER          NOT NULL,
+    door_height          INTEGER          NOT NULL,
+    door_width           INTEGER          NOT NULL,
+    features             VARCHAR(64)      NOT NULL,
+    popularity           INTEGER          NOT NULL,
+    door_width_range_id  INTEGER          NOT NULL DEFAULT 0,
+    door_height_range_id INTEGER          NOT NULL DEFAULT 0,
+    rent_range_id        INTEGER          NOT NULL DEFAULT 0
 );
 alter table isuumo.estate add index (rent, id);
 alter table isuumo.estate add index (rent, popularity, id);
-alter table isuumo.estate add index (door_width, popularity);
-alter table isuumo.estate add index (door_height, popularity);
+alter table isuumo.estate add index (door_width_range_id, popularity);
+alter table isuumo.estate add index (door_height_range_id, popularity);
+alter table isuumo.estate add index (rent_range_id, popularity);
 alter table isuumo.estate add index (latitude);
 alter table isuumo.estate add index (longitude);
 alter table isuumo.estate add index (popularity);

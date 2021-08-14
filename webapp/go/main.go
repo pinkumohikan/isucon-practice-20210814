@@ -352,6 +352,8 @@ func initialize(c echo.Context) error {
 		}
 	}
 
+	dbByEstate.Exec("INSERT INTO `estate`(`id`, `door_height_range_id`) SELECT id, CASE WHEN estate.door_height >= 150 THEN 3 WHEN estate.door_height >= 110 THEN 2 WHEN estate.door_height >= 80 THEN 1 WHEN estate.door_height >= 0 THEN 0 END FROM estate ON DUPLICATE KEY UPDATE `id` = VALUES(`id`);")
+
 	return c.JSON(http.StatusOK, InitializeResponse{
 		Language: "go",
 	})
@@ -740,16 +742,8 @@ func searchEstates(c echo.Context) error {
 	params := make([]interface{}, 0)
 
 	if c.QueryParam("doorHeightRangeId") != "" {
-		doorHeight, err := getRange(estateSearchCondition.DoorHeight, c.QueryParam("doorHeightRangeId"))
-		if err != nil {
-			c.Echo().Logger.Infof("doorHeightRangeID invalid, %v : %v", c.QueryParam("doorHeightRangeId"), err)
-			return c.NoContent(http.StatusBadRequest)
-		}
-
-		if doorHeight.Max != -1 {
-			conditions = append(conditions, "door_height < ?")
-			params = append(params, doorHeight.Max)
-		}
+		conditions = append(conditions, "door_height_range_id = ?")
+		params = append(params,  c.QueryParam("doorHeightRangeId"))
 	}
 
 	if c.QueryParam("doorWidthRangeId") != "" {
